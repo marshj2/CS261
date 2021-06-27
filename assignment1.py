@@ -12,9 +12,7 @@ from static_array import *
 
 
 def min_max(arr: StaticArray) -> ():
-    """
-    TODO: Write this implementation
-    """
+    print("hello")
     pass
 
 
