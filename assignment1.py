@@ -118,10 +118,34 @@ def sa_range(start: int, end: int) -> StaticArray:
 
 
 def is_sorted(arr: StaticArray) -> int:
+    """Function that receives a StaticArray and returns an integer that describes whether
+    the array is sorted. Integers returned are as follows:
+    1: Strictly ascending (or only contains one element)
+    2: Strictly descending
+    0: Neither strictly ascending nor descending
     """
-    TODO: Write this implementation
-    """
-    pass
+    # Handle case where array contains a single element
+    if arr.size() == 1:
+        return 1
+    # Based on first two elements, check if we should verify if array is ascending or descending
+    if arr[1] > arr[0]:
+        ascending = True
+    else:
+        ascending = False
+    for val in range(0, arr.size()):
+        # If we have made it all the way through the array, return 1 or 2 depending on condition met
+        if val + 1 == arr.size():
+            if ascending:
+                return 1
+            elif not ascending:
+                return 2
+        # If still iterating through array, check if next element goes in opposite direction, return 0 if so
+        elif ascending:
+            if arr[val+1] <= arr[val]:
+                return 0
+        elif not ascending:
+            if arr[val+1] >= arr[val]:
+                return 0
 
 
 # ------------------- PROBLEM 7 - SA_SORT -----------------------------------
@@ -268,16 +292,16 @@ if __name__ == "__main__":
     print(arr)
 
 
-    print('\n# rotate example 2')
-    array_size = 1_000_000
-    source = [random.randint(-10**9, 10**9) for _ in range(array_size)]
-    arr = StaticArray(len(source))
-    for i, value in enumerate(source):
-        arr[i] = value
-    print(f'Started rotating large array of {array_size} elements')
-    rotate(arr, 3**14)
-    rotate(arr, -3**15)
-    print(f'Finished rotating large array of {array_size} elements')
+    # print('\n# rotate example 2')
+    # array_size = 1_000_000
+    # source = [random.randint(-10**9, 10**9) for _ in range(array_size)]
+    # arr = StaticArray(len(source))
+    # for i, value in enumerate(source):
+    #     arr[i] = value
+    # print(f'Started rotating large array of {array_size} elements')
+    # rotate(arr, 3**14)
+    # rotate(arr, -3**15)
+    # print(f'Finished rotating large array of {array_size} elements')
 
 
     print('\n# sa_range example 1')
