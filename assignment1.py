@@ -51,10 +51,13 @@ def fizz_buzz(arr: StaticArray) -> StaticArray:
 
 
 def reverse(arr: StaticArray) -> None:
-    """
-    TODO: Write this implementation
-    """
-    pass
+    """Reverse a StaticArray object in place, return reversed StaticArray object"""
+    arrCopy = StaticArray(arr.size())
+    for val in range(0, arr.size()):
+        arrCopy[val] = arr[val]
+    for val in range(0, arr.size()):
+        arr[arr.size() - 1 - val] = arrCopy[val]
+    return arr
 
 
 # ------------------- PROBLEM 4 - ROTATE ------------------------------------
