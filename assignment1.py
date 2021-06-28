@@ -51,7 +51,7 @@ def fizz_buzz(arr: StaticArray) -> StaticArray:
 
 
 def reverse(arr: StaticArray) -> None:
-    """Reverse a StaticArray object in place, return reversed StaticArray object"""
+    """Reverse a StaticArray object in place, return the reversed StaticArray object"""
     left = 0
     while left < (arr.size() - 1)/2:
         temp = arr[arr.size() - 1 - left]
