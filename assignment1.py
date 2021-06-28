@@ -58,7 +58,7 @@ def reverse(arr: StaticArray) -> None:
         arr[arr.size() - 1 - left] = arr[left]
         arr[left] = temp
         left += 1
-    return arr
+    return
 
 
 # ------------------- PROBLEM 4 - ROTATE ------------------------------------
