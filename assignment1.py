@@ -51,7 +51,7 @@ def fizz_buzz(arr: StaticArray) -> StaticArray:
 
 
 def reverse(arr: StaticArray) -> None:
-    """Reverse a StaticArray object in place, return the reversed StaticArray object"""
+    """Reverse a StaticArray object in place"""
     left = 0
     while left < (arr.size() - 1)/2:
         temp = arr[arr.size() - 1 - left]
@@ -65,10 +65,31 @@ def reverse(arr: StaticArray) -> None:
 
 
 def rotate(arr: StaticArray, steps: int) -> StaticArray:
+    """Function that receives two parameters - a StaticArray and an integer value (called
+    steps). The function will create and return a new StaticArray, where all elements are from
+    the original array but their position has shifted right or left steps number of times.
     """
-    TODO: Write this implementation
-    """
-    pass
+    new_arr = StaticArray(arr.size())
+    move_right = True
+    if steps < 0:
+        move_right = False
+        # Make steps positive after setting boolean
+        steps = steps - (steps * 2)
+    if steps > arr.size():
+        steps = steps % arr.size()
+    if move_right:
+        for val in range(0, arr.size()):
+            new_place = val + steps
+            if new_place >= arr.size():
+                new_place -= arr.size()
+            new_arr[new_place] = arr[val]
+    else:
+        for val in range(0, arr.size()):
+            new_place = val - steps
+            if new_place < 0:
+                new_place += arr.size()
+            new_arr[new_place] = arr[val]
+    return new_arr
 
 
 # ------------------- PROBLEM 5 - SA_RANGE ----------------------------------
