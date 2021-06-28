@@ -1,6 +1,6 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
+# Student Name: Jason Marsh
+# Assignment: 1
 # Description:
 
 import random
@@ -12,8 +12,15 @@ from static_array import *
 
 
 def min_max(arr: StaticArray) -> ():
-    print("hello")
-    pass
+    """Take StaticArray object as input, return tuple of minimum and maximum value of array"""
+    array_min = arr.get(0)
+    array_max = arr.get(0)
+    for val in range(0, arr.size()):
+        if arr.get(val) < array_min:
+            array_min = arr.get(val)
+        if arr.get(val) > array_max:
+            array_max = arr.get(val)
+    return array_min, array_max
 
 
 # ------------------- PROBLEM 2 - FIZZ_BUZZ ---------------------------------
