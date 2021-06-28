@@ -13,13 +13,13 @@ from static_array import *
 
 def min_max(arr: StaticArray) -> ():
     """Take StaticArray object as input, return tuple of minimum and maximum value of array"""
-    array_min = arr.get(0)
-    array_max = arr.get(0)
+    array_min = arr[0]
+    array_max = arr[0]
     for val in range(0, arr.size()):
-        if arr.get(val) < array_min:
-            array_min = arr.get(val)
-        if arr.get(val) > array_max:
-            array_max = arr.get(val)
+        if arr[val] < array_min:
+            array_min = arr[val]
+        if arr[val] > array_max:
+            array_max = arr[val]
     return array_min, array_max
 
 
@@ -27,10 +27,24 @@ def min_max(arr: StaticArray) -> ():
 
 
 def fizz_buzz(arr: StaticArray) -> StaticArray:
+    """Receives a StaticArray of integers and returns a new StaticArray object
+    based on the original array. If the value from the original array is divisible
+    by 3 and 5, the value in the new array is 'fizzbuzz', if it's divisible by
+    3 but not 5, 'fizz', and if it's divisible by 5 but not 3, 'buzz'. If it's
+    divisible by neither 3 nor 5, the value will be the same as that in the
+    original array.
     """
-    TODO: Write this implementation
-    """
-    pass
+    newArr = StaticArray(arr.size())
+    for val in range(0, arr.size()):
+        if arr[val] % 3 == 0 and arr[val] % 5 == 0:
+            newArr[val] = 'fizzbuzz'
+        elif arr[val] % 3 == 0:
+            newArr[val] = 'fizz'
+        elif arr[val] % 5 == 0:
+            newArr[val] = 'buzz'
+        else:
+            newArr[val] = arr[val]
+    return newArr
 
 
 # ------------------- PROBLEM 3 - REVERSE -----------------------------------
