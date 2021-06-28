@@ -76,6 +76,8 @@ def rotate(arr: StaticArray, steps: int) -> StaticArray:
         # Make steps positive after setting boolean
         steps = steps - (steps * 2)
     if steps > arr.size():
+        # Reduce number of steps required by finding remaining steps after
+        # dividing steps by array size
         steps = steps % arr.size()
     if move_right:
         for val in range(0, arr.size()):
@@ -96,10 +98,20 @@ def rotate(arr: StaticArray, steps: int) -> StaticArray:
 
 
 def sa_range(start: int, end: int) -> StaticArray:
+    """Function that receives two integers start and end and returns a StaticArray that
+    contains all consecutive values between start and end (inclusive).
     """
-    TODO: Write this implementation
-    """
-    pass
+    # Check if we need to count forwards (end > start) or backwards (start > end)
+    # If start = end, this is handled in else statement
+    if end > start:
+        arr = StaticArray(end - start + 1)
+        for val in range(0, arr.size()):
+            arr[val] = start + val
+    else:
+        arr = StaticArray(start - end + 1)
+        for val in range(0,arr.size()):
+            arr[val] = start - val
+    return arr
 
 
 # ------------------- PROBLEM 6 - IS_SORTED ---------------------------------
