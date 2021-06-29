@@ -152,10 +152,20 @@ def is_sorted(arr: StaticArray) -> int:
 
 
 def sa_sort(arr: StaticArray) -> None:
+    """ Function that receives a StaticArray and sorts its content in non-descending order.
+    Original array is modified, nothing is returned
     """
-    TODO: Write this implementation
-    """
-    pass
+    sorted = True
+    for val in range(0, arr.size()):
+        for val2 in range(0, arr.size() - val - 1):
+            if arr[val2] > arr[val2 + 1]:
+                temp = arr[val2]
+                arr[val2] = arr[val2 + 1]
+                arr[val2 + 1] = temp
+                sorted = False
+        if sorted:
+            break
+    return
 
 
 # ------------------- PROBLEM 8 - REMOVE_DUPLICATES -------------------------
