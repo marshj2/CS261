@@ -172,10 +172,24 @@ def sa_sort(arr: StaticArray) -> None:
 
 
 def remove_duplicates(arr: StaticArray) -> StaticArray:
+    """Function that receives a StaticArray where the elements are already in sorted order
+    and returns a new StaticArray with duplicate values removed.
     """
-    TODO: Write this implementation
-    """
-    pass
+    duplicates = 0
+    for val in range(1, arr.size()):
+        if arr[val] == arr[val - 1]:
+            duplicates += 1
+
+    new_arr = StaticArray(arr.size() - duplicates)
+    new_arr[0] = arr[0]
+
+    count = 1
+    for val in range(1, arr.size()):
+        if arr[val] != arr[val - 1]:
+            new_arr[count] = arr[val]
+            count += 1
+    return new_arr
+
 
 
 # ------------------- PROBLEM 9 - COUNT_SORT --------------------------------
@@ -339,20 +353,20 @@ if __name__ == "__main__":
         print('Result:', is_sorted(arr), arr)
 
 
-    print('\n# sa_sort example 1')
-    test_cases = (
-        [1, 10, 2, 20, 3, 30, 4, 40, 5],
-        ['zebra2', 'apple', 'tomato', 'apple', 'zebra1'],
-        [(1, 1), (20, 1), (1, 20), (2, 20)],
-        [random.randint(-10**7, 10**7) for _ in range(5_000)]
-    )
-    for case in test_cases:
-        arr = StaticArray(len(case))
-        for i, value in enumerate(case):
-            arr[i] = value
-        print(arr if len(case) < 50 else 'Started sorting large array')
-        sa_sort(arr)
-        print(arr if len(case) < 50 else 'Finished sorting large array')
+    # print('\n# sa_sort example 1')
+    # test_cases = (
+    #     [1, 10, 2, 20, 3, 30, 4, 40, 5],
+    #     ['zebra2', 'apple', 'tomato', 'apple', 'zebra1'],
+    #     [(1, 1), (20, 1), (1, 20), (2, 20)],
+    #     [random.randint(-10**7, 10**7) for _ in range(5_000)]
+    # )
+    # for case in test_cases:
+    #     arr = StaticArray(len(case))
+    #     for i, value in enumerate(case):
+    #         arr[i] = value
+    #     print(arr if len(case) < 50 else 'Started sorting large array')
+    #     sa_sort(arr)
+    #     print(arr if len(case) < 50 else 'Finished sorting large array')
 
 
     print('\n# remove_duplicates example 1')
