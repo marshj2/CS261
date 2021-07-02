@@ -230,22 +230,31 @@ def sa_intersection(arr1: StaticArray, arr2: StaticArray, arr3: StaticArray) \
     order and returns a new StaticArray with only those elements that appear in all three input
     arrays
     """
-    count = 0
-    for val1 in range(0, arr1):
-        for val2 in range(0, arr2):
-            for val3 in range(0, arr3):
-                if val1 == val2 and val2 == val3 and val1 == val3:
-                    count += 1
+    return sa_intersection_helper(sa_intersection_helper(arr1, arr2), arr3)
 
+
+def sa_intersection_helper(arr1: StaticArray, arr2: StaticArray) \
+        -> StaticArray:
+    """Helper function for sa_intersection"""
+    count = 0
+
+    for val1 in range(0, arr1.size()):
+        for val2 in range(0, arr2.size()):
+            if arr1[val1] == arr2[val2]:
+                count += 1
+                break
+
+    if count == 0:
+        count = 1
     new_arr = StaticArray(count)
     count = 0
-    for val1 in range(0, arr1):
-        for val2 in range(0, arr2):
-            for val3 in range(0, arr3):
-                if val1 == val2 and val2 == val3 and val1 == val3:
-                    new_arr[count] = val3
-                    count += 1
 
+    for val1 in range(0, arr1.size()):
+        for val2 in range(0, arr2.size()):
+            if arr1[val1] == arr2[val2]:
+                new_arr[count] = arr1[val1]
+                count += 1
+                break
     return new_arr
 
 
@@ -294,157 +303,157 @@ def transform_string(source: str, s1: str, s2: str) -> str:
 
 if __name__ == "__main__":
 
-    print('\n# min_max example 1')
-    arr = StaticArray(5)
-    for i, value in enumerate([7, 8, 6, -5, 4]):
-        arr[i] = value
-    print(min_max(arr))
-
-
-    print('\n# min_max example 2')
-    arr = StaticArray(1)
-    arr[0] = 100
-    print(min_max(arr))
-
-
-    print('\n# min_max example 3')
-    test_cases = (
-        [3, 3, 3],
-        [-10, -30, -5, 0, -10],
-        [25, 50, 0, 10],
-    )
-    for case in test_cases:
-        arr = StaticArray(len(case))
-        for i, value in enumerate(case):
-            arr[i] = value
-        print(min_max(arr))
-
-
-    print('\n# fizz_buzz example 1')
-    source = [_ for _ in range(-5, 20, 4)]
-    arr = StaticArray(len(source))
-    for i, value in enumerate(source):
-        arr[i] = value
-    print(fizz_buzz(arr))
-    print(arr)
-
-
-    print('\n# reverse example 1')
-    source = [_ for _ in range(-20, 20, 7)]
-    arr = StaticArray(len(source))
-    for i, value in enumerate(source):
-        arr.set(i, value)
-    print(arr)
-    reverse(arr)
-    print(arr)
-    reverse(arr)
-    print(arr)
-
-
-    print('\n# rotate example 1')
-    source = [_ for _ in range(-20, 20, 7)]
-    arr = StaticArray(len(source))
-    for i, value in enumerate(source):
-        arr.set(i, value)
-    print(arr)
-    for steps in [1, 2, 0, -1, -2, 28, -100, 2**28, -2**31]:
-        print(rotate(arr, steps), steps)
-    print(arr)
-
-
-    # print('\n# rotate example 2')
-    # array_size = 1_000_000
-    # source = [random.randint(-10**9, 10**9) for _ in range(array_size)]
+    # print('\n# min_max example 1')
+    # arr = StaticArray(5)
+    # for i, value in enumerate([7, 8, 6, -5, 4]):
+    #     arr[i] = value
+    # print(min_max(arr))
+    #
+    #
+    # print('\n# min_max example 2')
+    # arr = StaticArray(1)
+    # arr[0] = 100
+    # print(min_max(arr))
+    #
+    #
+    # print('\n# min_max example 3')
+    # test_cases = (
+    #     [3, 3, 3],
+    #     [-10, -30, -5, 0, -10],
+    #     [25, 50, 0, 10],
+    # )
+    # for case in test_cases:
+    #     arr = StaticArray(len(case))
+    #     for i, value in enumerate(case):
+    #         arr[i] = value
+    #     print(min_max(arr))
+    #
+    #
+    # print('\n# fizz_buzz example 1')
+    # source = [_ for _ in range(-5, 20, 4)]
     # arr = StaticArray(len(source))
     # for i, value in enumerate(source):
     #     arr[i] = value
-    # print(f'Started rotating large array of {array_size} elements')
-    # rotate(arr, 3**14)
-    # rotate(arr, -3**15)
-    # print(f'Finished rotating large array of {array_size} elements')
-
-
-    print('\n# sa_range example 1')
-    cases = [
-        (1, 3), (-1, 2), (0, 0), (0, -3),
-        (-105, -99), (-99, -105)]
-    for start, end in cases:
-        print(start, end, sa_range(start, end))
-
-
-    print('\n# is_sorted example 1')
-    test_cases = (
-        [-100, -8, 0, 2, 3, 10, 20, 100],
-        ['A', 'B', 'Z', 'a', 'z'],
-        ['Z', 'T', 'K', 'A', '5'],
-        [1, 3, -10, 20, -30, 0],
-        [-10, 0, 0, 10, 20, 30],
-        [100, 90, 0, -90, -200],
-        ['apple']
-    )
-    for case in test_cases:
-        arr = StaticArray(len(case))
-        for i, value in enumerate(case):
-            arr[i] = value
-        print('Result:', is_sorted(arr), arr)
-
-
-    # print('\n# sa_sort example 1')
+    # print(fizz_buzz(arr))
+    # print(arr)
+    #
+    #
+    # print('\n# reverse example 1')
+    # source = [_ for _ in range(-20, 20, 7)]
+    # arr = StaticArray(len(source))
+    # for i, value in enumerate(source):
+    #     arr.set(i, value)
+    # print(arr)
+    # reverse(arr)
+    # print(arr)
+    # reverse(arr)
+    # print(arr)
+    #
+    #
+    # print('\n# rotate example 1')
+    # source = [_ for _ in range(-20, 20, 7)]
+    # arr = StaticArray(len(source))
+    # for i, value in enumerate(source):
+    #     arr.set(i, value)
+    # print(arr)
+    # for steps in [1, 2, 0, -1, -2, 28, -100, 2**28, -2**31]:
+    #     print(rotate(arr, steps), steps)
+    # print(arr)
+    #
+    #
+    # # print('\n# rotate example 2')
+    # # array_size = 1_000_000
+    # # source = [random.randint(-10**9, 10**9) for _ in range(array_size)]
+    # # arr = StaticArray(len(source))
+    # # for i, value in enumerate(source):
+    # #     arr[i] = value
+    # # print(f'Started rotating large array of {array_size} elements')
+    # # rotate(arr, 3**14)
+    # # rotate(arr, -3**15)
+    # # print(f'Finished rotating large array of {array_size} elements')
+    #
+    #
+    # print('\n# sa_range example 1')
+    # cases = [
+    #     (1, 3), (-1, 2), (0, 0), (0, -3),
+    #     (-105, -99), (-99, -105)]
+    # for start, end in cases:
+    #     print(start, end, sa_range(start, end))
+    #
+    #
+    # print('\n# is_sorted example 1')
     # test_cases = (
-    #     [1, 10, 2, 20, 3, 30, 4, 40, 5],
-    #     ['zebra2', 'apple', 'tomato', 'apple', 'zebra1'],
-    #     [(1, 1), (20, 1), (1, 20), (2, 20)],
-    #     [random.randint(-10**7, 10**7) for _ in range(5_000)]
+    #     [-100, -8, 0, 2, 3, 10, 20, 100],
+    #     ['A', 'B', 'Z', 'a', 'z'],
+    #     ['Z', 'T', 'K', 'A', '5'],
+    #     [1, 3, -10, 20, -30, 0],
+    #     [-10, 0, 0, 10, 20, 30],
+    #     [100, 90, 0, -90, -200],
+    #     ['apple']
+    # )
+    # for case in test_cases:
+    #     arr = StaticArray(len(case))
+    #     for i, value in enumerate(case):
+    #         arr[i] = value
+    #     print('Result:', is_sorted(arr), arr)
+    #
+    #
+    # # print('\n# sa_sort example 1')
+    # # test_cases = (
+    # #     [1, 10, 2, 20, 3, 30, 4, 40, 5],
+    # #     ['zebra2', 'apple', 'tomato', 'apple', 'zebra1'],
+    # #     [(1, 1), (20, 1), (1, 20), (2, 20)],
+    # #     [random.randint(-10**7, 10**7) for _ in range(5_000)]
+    # # )
+    # # for case in test_cases:
+    # #     arr = StaticArray(len(case))
+    # #     for i, value in enumerate(case):
+    # #         arr[i] = value
+    # #     print(arr if len(case) < 50 else 'Started sorting large array')
+    # #     sa_sort(arr)
+    # #     print(arr if len(case) < 50 else 'Finished sorting large array')
+    #
+    #
+    # print('\n# remove_duplicates example 1')
+    # test_cases = (
+    #     [1], [1, 2], [1, 1, 2], [1, 20, 30, 40, 500, 500, 500],
+    #     [5, 5, 5, 4, 4, 3, 2, 1, 1], [1, 1, 1, 1, 2, 2, 2, 2]
+    # )
+    # for case in test_cases:
+    #     arr = StaticArray(len(case))
+    #     for i, value in enumerate(case):
+    #         arr[i] = value
+    #     print(arr)
+    #     print(remove_duplicates(arr))
+    # print(arr)
+    #
+    #
+    # print('\n# count_sort example 1')
+    # test_cases = (
+    #     [1, 2, 4, 3, 5], [5, 4, 3, 2, 1], [0, -5, -3, -4, -2, -1, 0],
+    #     [-3, -2, -1, 0, 1, 2, 3], [1, 2, 3, 4, 3, 2, 1, 5, 5, 2, 3, 1],
+    #     [10100, 10721, 10320, 10998], [-100320, -100450, -100999, -100001],
     # )
     # for case in test_cases:
     #     arr = StaticArray(len(case))
     #     for i, value in enumerate(case):
     #         arr[i] = value
     #     print(arr if len(case) < 50 else 'Started sorting large array')
-    #     sa_sort(arr)
-    #     print(arr if len(case) < 50 else 'Finished sorting large array')
+    #     result = count_sort(arr)
+    #     print(result if len(case) < 50 else 'Finished sorting large array')
 
 
-    print('\n# remove_duplicates example 1')
-    test_cases = (
-        [1], [1, 2], [1, 1, 2], [1, 20, 30, 40, 500, 500, 500],
-        [5, 5, 5, 4, 4, 3, 2, 1, 1], [1, 1, 1, 1, 2, 2, 2, 2]
-    )
-    for case in test_cases:
-        arr = StaticArray(len(case))
-        for i, value in enumerate(case):
-            arr[i] = value
-        print(arr)
-        print(remove_duplicates(arr))
-    print(arr)
-
-
-    print('\n# count_sort example 1')
-    test_cases = (
-        [1, 2, 4, 3, 5], [5, 4, 3, 2, 1], [0, -5, -3, -4, -2, -1, 0],
-        [-3, -2, -1, 0, 1, 2, 3], [1, 2, 3, 4, 3, 2, 1, 5, 5, 2, 3, 1],
-        [10100, 10721, 10320, 10998], [-100320, -100450, -100999, -100001],
-    )
-    for case in test_cases:
-        arr = StaticArray(len(case))
-        for i, value in enumerate(case):
-            arr[i] = value
-        print(arr if len(case) < 50 else 'Started sorting large array')
-        result = count_sort(arr)
-        print(result if len(case) < 50 else 'Finished sorting large array')
-
-
-    print('\n# count_sort example 2')
-    array_size = 5_000_000
-    min_val = random.randint(-1_000_000_000, 1_000_000_000 - 998)
-    max_val = min_val + 998
-    case = [random.randint(min_val, max_val) for _ in range(array_size)]
-    arr = StaticArray(len(case))
-    for i, value in enumerate(case):
-        arr[i] = value
-    print(f'Started sorting large array of {array_size} elements')
-    result = count_sort(arr)
-    print(f'Finished sorting large array of {array_size} elements')
+    # print('\n# count_sort example 2')
+    # array_size = 5_000_000
+    # min_val = random.randint(-1_000_000_000, 1_000_000_000 - 998)
+    # max_val = min_val + 998
+    # case = [random.randint(min_val, max_val) for _ in range(array_size)]
+    # arr = StaticArray(len(case))
+    # for i, value in enumerate(case):
+    #     arr[i] = value
+    # print(f'Started sorting large array of {array_size} elements')
+    # result = count_sort(arr)
+    # print(f'Finished sorting large array of {array_size} elements')
 
 
     print('\n# sa_intersection example 1')
