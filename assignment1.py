@@ -196,10 +196,29 @@ def remove_duplicates(arr: StaticArray) -> StaticArray:
 
 
 def count_sort(arr: StaticArray) -> StaticArray:
+    """Function that receives a StaticArray and returns a new StaticArray with the same
+    content sorted in non-ascending order. The original array should not be modified.
+    Uses radix sort
     """
-    TODO: Write this implementation
-    """
-    pass
+    min_value = min_max(arr)[0]
+    max_value = min_max(arr)[1]
+    new_arr = StaticArray(arr.size())
+    count = StaticArray(max_value - min_value + 1)
+
+    for val in range(0, count.size()):
+        count[val] = 0
+
+    for val in range(0, arr.size()):
+        count[arr[val] - min_value] += 1
+
+    for val in range(1, count.size()):
+        count[val] = count[val] + count[val-1]
+
+    for val in range(0, new_arr.size()):
+        new_arr[count[arr[val] - min_value] - 1] = arr[val]
+        count[arr[val] - min_value] -= 1
+
+    return new_arr
 
 
 # ------------------- PROBLEM 10 - SA_INTERSECTION --------------------------
