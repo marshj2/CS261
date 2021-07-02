@@ -226,10 +226,27 @@ def count_sort(arr: StaticArray) -> StaticArray:
 
 def sa_intersection(arr1: StaticArray, arr2: StaticArray, arr3: StaticArray) \
         -> StaticArray:
+    """Function that receives three StaticArrays where the elements are already in sorted
+    order and returns a new StaticArray with only those elements that appear in all three input
+    arrays
     """
-    TODO: Write this implementation
-    """
-    pass
+    count = 0
+    for val1 in range(0, arr1):
+        for val2 in range(0, arr2):
+            for val3 in range(0, arr3):
+                if val1 == val2 and val2 == val3 and val1 == val3:
+                    count += 1
+
+    new_arr = StaticArray(count)
+    count = 0
+    for val1 in range(0, arr1):
+        for val2 in range(0, arr2):
+            for val3 in range(0, arr3):
+                if val1 == val2 and val2 == val3 and val1 == val3:
+                    new_arr[count] = val3
+                    count += 1
+
+    return new_arr
 
 
 # ------------------- PROBLEM 11 - SORTED SQUARES ---------------------------
