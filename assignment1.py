@@ -239,6 +239,9 @@ def sa_intersection_helper(arr1: StaticArray, arr2: StaticArray) \
     count = 0
 
     for val1 in range(0, arr1.size()):
+        if val1 > 0:
+            if arr1[val1] == arr1[val1 - 1]:
+                continue
         for val2 in range(0, arr2.size()):
             if arr1[val1] == arr2[val2]:
                 count += 1
@@ -250,6 +253,9 @@ def sa_intersection_helper(arr1: StaticArray, arr2: StaticArray) \
     count = 0
 
     for val1 in range(0, arr1.size()):
+        if val1 > 0:
+            if arr1[val1] == arr1[val1 - 1]:
+                continue
         for val2 in range(0, arr2.size()):
             if arr1[val1] == arr2[val2]:
                 new_arr[count] = arr1[val1]
@@ -262,10 +268,14 @@ def sa_intersection_helper(arr1: StaticArray, arr2: StaticArray) \
 
 
 def sorted_squares(arr: StaticArray) -> StaticArray:
+    """Function that receives a StaticArray where the elements are already in sorted order
+    and returns a new StaticArray with squares of the values from the original array, sorted in
+    non-descending order.
     """
-    TODO: Write this implementation
-    """
-    pass
+    new_arr = StaticArray(arr.size())
+    for val in range(0, arr.size()):
+        new_arr[val] = arr[val] * arr[val]
+
 
 
 # ------------------- PROBLEM 12 - ADD_NUMBERS ------------------------------
@@ -460,7 +470,8 @@ if __name__ == "__main__":
     test_cases = (
         ([1, 2, 3], [3, 4, 5], [2, 3, 4]),
         ([1, 2], [2, 4], [3, 4]),
-        ([1, 1, 2, 2, 5, 75], [1, 2, 2, 12, 75, 90], [-5, 2, 2, 2, 20, 75, 95])
+        ([1, 1, 2, 2, 5, 75], [1, 2, 2, 12, 75, 90], [-5, 2, 2, 2, 20, 75, 95]),
+        ([-9, 3, 5, 5, 6, 8, 8, 10],[-10, -6, -5, -3, -2, 0, 2, 4, 8, 9],[-4, -3, 1, 1, 3, 3, 4, 6, 8, 9])
     )
     for case in test_cases:
         arr = []
