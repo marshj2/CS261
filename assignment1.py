@@ -209,14 +209,14 @@ def count_sort(arr: StaticArray) -> StaticArray:
         count[val] = 0
 
     for val in range(0, arr.size()):
-        count[arr[val] - min_value] += 1
+        count[count.size() - (arr[val] - min_value) - 1] += 1
 
     for val in range(1, count.size()):
         count[val] = count[val] + count[val-1]
 
     for val in range(0, new_arr.size()):
-        new_arr[count[arr[val] - min_value] - 1] = arr[val]
-        count[arr[val] - min_value] -= 1
+        new_arr[count[count.size() - (arr[val] - min_value) - 1] - 1] = arr[val]
+        count[count.size() - (arr[val] - min_value) - 1] -= 1
 
     return new_arr
 
