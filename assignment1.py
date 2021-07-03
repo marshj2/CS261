@@ -254,15 +254,6 @@ def sa_intersection_helper(arr1: StaticArray, arr2: StaticArray) \
             index2 += 1
             count += 1
 
-    # for val1 in range(0, arr1.size()):
-    #     if val1 > 0:
-    #         if arr1[val1] == arr1[val1 - 1]:
-    #             continue
-    #     for val2 in range(0, arr2.size()):
-    #         if arr1[val1] == arr2[val2]:
-    #             count += 1
-    #             break
-
     if count == 0:
         new_arr = StaticArray(1)
         return new_arr
@@ -294,8 +285,19 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
     non-descending order.
     """
     new_arr = StaticArray(arr.size())
+
+    left = 0
+    right = arr.size() - 1
+
     for val in range(0, arr.size()):
-        new_arr[val] = arr[val] * arr[val]
+        if abs(arr[left]) >= abs(arr[right]):
+            new_arr[arr.size() - 1 - val] = arr[left] ** 2
+            left += 1
+        else:
+            new_arr[arr.size() - 1 - val] = arr[right] ** 2
+            right -= 1
+
+    return new_arr
 
 
 
