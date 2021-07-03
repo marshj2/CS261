@@ -305,10 +305,49 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 def add_numbers(arr1: StaticArray, arr2: StaticArray) -> StaticArray:
+    """Function that receives two StaticArrays, each representing a non-negative number,
+    and returns a new StaticArray representing a sum of these two numbers
     """
-    TODO: Write this implementation
-    """
-    pass
+    arr1_num = 0
+    arr2_num = 0
+
+    for val in range(0, arr1.size()):
+        arr1_num += arr1[val]
+        arr1_num *= 10
+    arr1_num //= 10
+
+    for val in range(0, arr2.size()):
+        arr2_num += arr2[val]
+        arr2_num *= 10
+    arr2_num //= 10
+
+    sum = arr1_num + arr2_num
+    sum_copy = sum
+    length = 0
+
+    if sum == 0:
+        sum_arr = StaticArray(1)
+        sum_arr[0] = 0
+        return sum_arr
+
+    while sum_copy != 0:
+        digit = sum_copy % 10
+        sum_copy = sum_copy - digit
+        sum_copy //= 10
+        length += 1
+
+    sum_arr = StaticArray(length)
+    count = 0
+
+    while sum != 0:
+        digit = sum % 10
+        sum = sum - digit
+        sum //= 10
+        sum_arr[sum_arr.size() - 1 - count] = digit
+        count += 1
+
+    return sum_arr
+
 
 
 # ------------------- PROBLEM 13 - SPIRAL MATRIX -------------------------
@@ -488,47 +527,47 @@ if __name__ == "__main__":
     # result = count_sort(arr)
     # print(f'Finished sorting large array of {array_size} elements')
 
+    #
+    # print('\n# sa_intersection example 1')
+    # test_cases = (
+    #     ([1, 2, 3], [3, 4, 5], [2, 3, 4]),
+    #     ([1, 2], [2, 4], [3, 4]),
+    #     ([1, 1, 2, 2, 5, 75], [1, 2, 2, 12, 75, 90], [-5, 2, 2, 2, 20, 75, 95]),
+    #     ([-9, 3, 5, 5, 6, 8, 8, 10],[-10, -6, -5, -3, -2, 0, 2, 4, 8, 9],[-4, -3, 1, 1, 3, 3, 4, 6, 8, 9])
+    # )
+    # for case in test_cases:
+    #     arr = []
+    #     for i, lst in enumerate(case):
+    #         arr.append(StaticArray(len(lst)))
+    #         for j, value in enumerate(sorted(lst)):
+    #             arr[i][j] = value
+    #     print(sa_intersection(arr[0], arr[1], arr[2]))
 
-    print('\n# sa_intersection example 1')
-    test_cases = (
-        ([1, 2, 3], [3, 4, 5], [2, 3, 4]),
-        ([1, 2], [2, 4], [3, 4]),
-        ([1, 1, 2, 2, 5, 75], [1, 2, 2, 12, 75, 90], [-5, 2, 2, 2, 20, 75, 95]),
-        ([-9, 3, 5, 5, 6, 8, 8, 10],[-10, -6, -5, -3, -2, 0, 2, 4, 8, 9],[-4, -3, 1, 1, 3, 3, 4, 6, 8, 9])
-    )
-    for case in test_cases:
-        arr = []
-        for i, lst in enumerate(case):
-            arr.append(StaticArray(len(lst)))
-            for j, value in enumerate(sorted(lst)):
-                arr[i][j] = value
-        print(sa_intersection(arr[0], arr[1], arr[2]))
+    #
+    # print('\n# sorted_squares example 1')
+    # test_cases = (
+    #     [1, 2, 3, 4, 5],
+    #     [-5, -4, -3, -2, -1, 0],
+    #     [-3, -2, -2, 0, 1, 2, 3],
+    # )
+    # for case in test_cases:
+    #     arr = StaticArray(len(case))
+    #     for i, value in enumerate(sorted(case)):
+    #         arr[i] = value
+    #     print(arr)
+    #     result = sorted_squares(arr)
+    #     print(result)
 
 
-    print('\n# sorted_squares example 1')
-    test_cases = (
-        [1, 2, 3, 4, 5],
-        [-5, -4, -3, -2, -1, 0],
-        [-3, -2, -2, 0, 1, 2, 3],
-    )
-    for case in test_cases:
-        arr = StaticArray(len(case))
-        for i, value in enumerate(sorted(case)):
-            arr[i] = value
-        print(arr)
-        result = sorted_squares(arr)
-        print(result)
-
-
-    print('\n# sorted_squares example 2')
-    array_size = 5_000_000
-    case = [random.randint(-10**9, 10**9) for _ in range(array_size)]
-    arr = StaticArray(len(case))
-    for i, value in enumerate(sorted(case)):
-        arr[i] = value
-    print(f'Started sorting large array of {array_size} elements')
-    result = sorted_squares(arr)
-    print(f'Finished sorting large array of {array_size} elements')
+    # print('\n# sorted_squares example 2')
+    # array_size = 5_000_000
+    # case = [random.randint(-10**9, 10**9) for _ in range(array_size)]
+    # arr = StaticArray(len(case))
+    # for i, value in enumerate(sorted(case)):
+    #     arr[i] = value
+    # print(f'Started sorting large array of {array_size} elements')
+    # result = sorted_squares(arr)
+    # print(f'Finished sorting large array of {array_size} elements')
 
 
     print('\n# add_numbers example 1')
