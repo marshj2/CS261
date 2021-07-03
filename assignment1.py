@@ -237,30 +237,51 @@ def sa_intersection_helper(arr1: StaticArray, arr2: StaticArray) \
         -> StaticArray:
     """Helper function for sa_intersection"""
     count = 0
+    index1 = 0
+    index2 = 0
 
-    for val1 in range(0, arr1.size()):
-        if val1 > 0:
-            if arr1[val1] == arr1[val1 - 1]:
-                continue
-        for val2 in range(0, arr2.size()):
-            if arr1[val1] == arr2[val2]:
-                count += 1
-                break
+    if arr1[0] is None or arr2[0] is None:
+        new_arr = StaticArray(1)
+        return new_arr
+
+    while index1 < arr1.size() and index2 < arr2.size():
+        if arr1[index1] > arr2[index2]:
+            index2 += 1
+        elif arr2[index2] > arr1[index1]:
+            index1 += 1
+        else:
+            index1 += 1
+            index2 += 1
+            count += 1
+
+    # for val1 in range(0, arr1.size()):
+    #     if val1 > 0:
+    #         if arr1[val1] == arr1[val1 - 1]:
+    #             continue
+    #     for val2 in range(0, arr2.size()):
+    #         if arr1[val1] == arr2[val2]:
+    #             count += 1
+    #             break
 
     if count == 0:
-        count = 1
+        new_arr = StaticArray(1)
+        return new_arr
+
     new_arr = StaticArray(count)
+    index1 = 0
+    index2 = 0
     count = 0
 
-    for val1 in range(0, arr1.size()):
-        if val1 > 0:
-            if arr1[val1] == arr1[val1 - 1]:
-                continue
-        for val2 in range(0, arr2.size()):
-            if arr1[val1] == arr2[val2]:
-                new_arr[count] = arr1[val1]
-                count += 1
-                break
+    while index1 < arr1.size() and index2 < arr2.size():
+        if arr1[index1] > arr2[index2]:
+            index2 += 1
+        elif arr2[index2] > arr1[index1]:
+            index1 += 1
+        else:
+            new_arr[count] = arr1[index1]
+            index1 += 1
+            index2 += 1
+            count += 1
     return new_arr
 
 
