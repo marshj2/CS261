@@ -429,18 +429,28 @@ def spiral_matrix(rows: int, cols: int, start: int) -> StaticArray:
                     count += 1
                 col_index += 1
 
-
-
     return matrix
 
 # ------------------- PROBLEM 14 - TRANSFORM_STRING -------------------------
 
 
 def transform_string(source: str, s1: str, s2: str) -> str:
+    """Function that receives three strings (source, s1, and s2) and then returns a
+    modified string of the same length as source.
     """
-    TODO: Write this implementation
-    """
-    pass
+    output = ''
+    for char_index in range(0, len(source)):
+        if s1.find(source[char_index]) != -1:
+            output += s2[s1.find(source[char_index])]
+        elif source[char_index].isupper():
+            output += ' '
+        elif source[char_index].islower():
+            output += '#'
+        elif source[char_index].isdigit():
+            output += '!'
+        else:
+            output += '='
+    return output
 
 
 # ------------------- BASIC TESTING -----------------------------------------
@@ -659,45 +669,45 @@ if __name__ == "__main__":
     #         n2[i] = value
     #     print('Original nums:', n1, n2)
     #     print('Sum: ', add_numbers(n1, n2))
+    #
+    #
+    # print('\n# spiral matrix example 1')
+    # matrix = spiral_matrix(1, 1, 7)
+    # print(matrix)
+    # if matrix: print(matrix[0])
+    # matrix = spiral_matrix(3, 2, 12)
+    # if matrix: print(matrix[0], matrix[1], matrix[2])
+    #
+    #
+    # print('\n# spiral matrix example 2')
+    # def print_matrix(matrix: StaticArray) -> None:
+    #     rows, cols = matrix.size(), matrix[0].size()
+    #     for row in range(rows):
+    #         for col in range(cols):
+    #             print('{:4d}'.format(matrix[row][col]), end=' ')
+    #         print()
+    #     print()
+    #
+    # test_cases = (
+    #     (4, 4, 1), (3, 4, 0), (2, 3, 10), (1, 2, 1), (1, 1, 42),
+    #     (4, 4, -1), (3, 4, -3), (2, 3, -12), (1, 2, -42),
+    # )
+    # for rows, cols, start in test_cases:
+    #     matrix = spiral_matrix(rows, cols, start)
+    #     if matrix: print_matrix(matrix)
 
 
-    print('\n# spiral matrix example 1')
-    matrix = spiral_matrix(1, 1, 7)
-    print(matrix)
-    if matrix: print(matrix[0])
-    matrix = spiral_matrix(3, 2, 12)
-    if matrix: print(matrix[0], matrix[1], matrix[2])
-
-
-    print('\n# spiral matrix example 2')
-    def print_matrix(matrix: StaticArray) -> None:
-        rows, cols = matrix.size(), matrix[0].size()
-        for row in range(rows):
-            for col in range(cols):
-                print('{:4d}'.format(matrix[row][col]), end=' ')
-            print()
-        print()
-
-    test_cases = (
-        (4, 4, 1), (3, 4, 0), (2, 3, 10), (1, 2, 1), (1, 1, 42),
-        (4, 4, -1), (3, 4, -3), (2, 3, -12), (1, 2, -42),
-    )
-    for rows, cols, start in test_cases:
-        matrix = spiral_matrix(rows, cols, start)
-        if matrix: print_matrix(matrix)
-
-
-    # print('\n# transform_strings example 1')
-    # test_cases = ('eMKCPVkRI%~}+$GW9EOQNMI!_%{#ED}#=-~WJbFNWSQqDO-..@}',
-    #               'dGAqJLcNC0YFJQEB5JJKETQ0QOODKF8EYX7BGdzAACmrSL0PVKC',
-    #               'aLiAnVhSV9}_+QOD3YSIYPR4MCKYUF9QUV9TVvNdFuGqVU4$/%D',
-    #               'zmRJWfoKC5RDKVYO3PWMATC7BEIIVX9LJR7FKtDXxXLpFG7PESX',
-    #               'hFKGVErCS$**!<OS<_/.>NR*)<<+IR!,=%?OAiPQJILzMI_#[+}',
-    #               'EOQUQJLBQLDLAVQSWERAGGAOKUUKOPUWLQSKJNECCPRRXGAUABN',
-    #               'WGBKTQSGVHHHHHTZZZZZMQKBLC66666NNR11111OKUN2KTGYUIB',
-    #               'YFOWAOYLWGQHJQXZAUPZPNUCEJABRR6MYR1JASNOTF22MAAGTVA',
-    #               'GNLXFPEPMYGHQQGZGEPZXGJVEYE666UKNE11111WGNW2NVLCIOK',
-    #               'VTABNCKEFTJHXATZTYGZVLXLAB6JVGRATY1GEY1PGCO2QFPRUAP',
-    #               'UTCKYKGJBWMHPYGZZZZZWOKQTM66666GLA11111CPF222RUPCJT')
-    # for case in test_cases:
-    #     print(transform_string(case, '612HZ', '261TO'))
+    print('\n# transform_strings example 1')
+    test_cases = ('eMKCPVkRI%~}+$GW9EOQNMI!_%{#ED}#=-~WJbFNWSQqDO-..@}',
+                  'dGAqJLcNC0YFJQEB5JJKETQ0QOODKF8EYX7BGdzAACmrSL0PVKC',
+                  'aLiAnVhSV9}_+QOD3YSIYPR4MCKYUF9QUV9TVvNdFuGqVU4$/%D',
+                  'zmRJWfoKC5RDKVYO3PWMATC7BEIIVX9LJR7FKtDXxXLpFG7PESX',
+                  'hFKGVErCS$**!<OS<_/.>NR*)<<+IR!,=%?OAiPQJILzMI_#[+}',
+                  'EOQUQJLBQLDLAVQSWERAGGAOKUUKOPUWLQSKJNECCPRRXGAUABN',
+                  'WGBKTQSGVHHHHHTZZZZZMQKBLC66666NNR11111OKUN2KTGYUIB',
+                  'YFOWAOYLWGQHJQXZAUPZPNUCEJABRR6MYR1JASNOTF22MAAGTVA',
+                  'GNLXFPEPMYGHQQGZGEPZXGJVEYE666UKNE11111WGNW2NVLCIOK',
+                  'VTABNCKEFTJHXATZTYGZVLXLAB6JVGRATY1GEY1PGCO2QFPRUAP',
+                  'UTCKYKGJBWMHPYGZZZZZWOKQTM66666GLA11111CPF222RUPCJT')
+    for case in test_cases:
+        print(transform_string(case, '612HZ', '261TO'))
