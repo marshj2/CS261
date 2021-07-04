@@ -354,11 +354,84 @@ def add_numbers(arr1: StaticArray, arr2: StaticArray) -> StaticArray:
 
 
 def spiral_matrix(rows: int, cols: int, start: int) -> StaticArray:
+    """Function that receives three integers (rows, cols, and start), then creates and
+    returns a 2D matrix (represented as a StaticArray of StaticArrays).
     """
-    TODO: Write this implementation
-    """
-    pass
+    matrix = StaticArray(rows)
 
+    if start >= 0:
+        positive = True
+    else:
+        positive = False
+
+    for row in range(0, rows):
+        matrix[row] = StaticArray(cols)
+
+    count_arr = StaticArray(rows * cols)
+
+    for count in range(0, count_arr.size()):
+        if positive:
+            count_arr[count] = start + count
+        else:
+            count_arr[count] = start - count
+
+    #if count_arr.size() == 1:
+        #return count_arr
+
+    count = 0
+    row_index = 0
+    col_index = 0
+
+    if positive:
+        while row_index < rows and col_index < cols:
+            for val in range(row_index, rows):
+                matrix[val][cols - 1] = count_arr[count]
+                count += 1
+            cols -= 1
+
+            for val in range(cols - 1, col_index - 1, -1):
+                matrix[rows - 1][val] = count_arr[count]
+                count += 1
+            rows -= 1
+
+            if col_index < cols:
+                for val in range(rows - 1, row_index - 1, -1):
+                    matrix[val][col_index] = count_arr[count]
+                    count += 1
+                col_index += 1
+
+            if row_index < rows:
+                for val in range(col_index, cols):
+                    matrix[row_index][val] = count_arr[count]
+                    count += 1
+                row_index += 1
+    else:
+        while row_index < rows and col_index < cols:
+            for val in range(col_index, cols):
+                matrix[rows - 1][val] = count_arr[count]
+                count += 1
+            rows -= 1
+
+            for val in range(rows - 1, row_index - 1, -1):
+                matrix[val][cols - 1] = count_arr[count]
+                count += 1
+            cols -= 1
+
+            if row_index < rows:
+                for val in range(cols - 1, col_index - 1, -1):
+                    matrix[row_index][val] = count_arr[count]
+                    count += 1
+                row_index += 1
+
+            if col_index < cols:
+                for val in range(row_index, rows):
+                    matrix[val][col_index] = count_arr[count]
+                    count += 1
+                col_index += 1
+
+
+
+    return matrix
 
 # ------------------- PROBLEM 14 - TRANSFORM_STRING -------------------------
 
@@ -570,22 +643,22 @@ if __name__ == "__main__":
     # print(f'Finished sorting large array of {array_size} elements')
 
 
-    print('\n# add_numbers example 1')
-    test_cases = (
-        ([1, 2, 3], [4, 5, 6]),
-        ([0], [2, 5]), ([0], [0]),
-        ([2, 0, 9, 0, 7], [1, 0, 8]),
-        ([9, 9, 9], [9, 9, 9, 9])
-    )
-    for num1, num2 in test_cases:
-        n1 = StaticArray(len(num1))
-        n2 = StaticArray(len(num2))
-        for i, value in enumerate(num1):
-            n1[i] = value
-        for i, value in enumerate(num2):
-            n2[i] = value
-        print('Original nums:', n1, n2)
-        print('Sum: ', add_numbers(n1, n2))
+    # print('\n# add_numbers example 1')
+    # test_cases = (
+    #     ([1, 2, 3], [4, 5, 6]),
+    #     ([0], [2, 5]), ([0], [0]),
+    #     ([2, 0, 9, 0, 7], [1, 0, 8]),
+    #     ([9, 9, 9], [9, 9, 9, 9])
+    # )
+    # for num1, num2 in test_cases:
+    #     n1 = StaticArray(len(num1))
+    #     n2 = StaticArray(len(num2))
+    #     for i, value in enumerate(num1):
+    #         n1[i] = value
+    #     for i, value in enumerate(num2):
+    #         n2[i] = value
+    #     print('Original nums:', n1, n2)
+    #     print('Sum: ', add_numbers(n1, n2))
 
 
     print('\n# spiral matrix example 1')
@@ -614,17 +687,17 @@ if __name__ == "__main__":
         if matrix: print_matrix(matrix)
 
 
-    print('\n# transform_strings example 1')
-    test_cases = ('eMKCPVkRI%~}+$GW9EOQNMI!_%{#ED}#=-~WJbFNWSQqDO-..@}',
-                  'dGAqJLcNC0YFJQEB5JJKETQ0QOODKF8EYX7BGdzAACmrSL0PVKC',
-                  'aLiAnVhSV9}_+QOD3YSIYPR4MCKYUF9QUV9TVvNdFuGqVU4$/%D',
-                  'zmRJWfoKC5RDKVYO3PWMATC7BEIIVX9LJR7FKtDXxXLpFG7PESX',
-                  'hFKGVErCS$**!<OS<_/.>NR*)<<+IR!,=%?OAiPQJILzMI_#[+}',
-                  'EOQUQJLBQLDLAVQSWERAGGAOKUUKOPUWLQSKJNECCPRRXGAUABN',
-                  'WGBKTQSGVHHHHHTZZZZZMQKBLC66666NNR11111OKUN2KTGYUIB',
-                  'YFOWAOYLWGQHJQXZAUPZPNUCEJABRR6MYR1JASNOTF22MAAGTVA',
-                  'GNLXFPEPMYGHQQGZGEPZXGJVEYE666UKNE11111WGNW2NVLCIOK',
-                  'VTABNCKEFTJHXATZTYGZVLXLAB6JVGRATY1GEY1PGCO2QFPRUAP',
-                  'UTCKYKGJBWMHPYGZZZZZWOKQTM66666GLA11111CPF222RUPCJT')
-    for case in test_cases:
-        print(transform_string(case, '612HZ', '261TO'))
+    # print('\n# transform_strings example 1')
+    # test_cases = ('eMKCPVkRI%~}+$GW9EOQNMI!_%{#ED}#=-~WJbFNWSQqDO-..@}',
+    #               'dGAqJLcNC0YFJQEB5JJKETQ0QOODKF8EYX7BGdzAACmrSL0PVKC',
+    #               'aLiAnVhSV9}_+QOD3YSIYPR4MCKYUF9QUV9TVvNdFuGqVU4$/%D',
+    #               'zmRJWfoKC5RDKVYO3PWMATC7BEIIVX9LJR7FKtDXxXLpFG7PESX',
+    #               'hFKGVErCS$**!<OS<_/.>NR*)<<+IR!,=%?OAiPQJILzMI_#[+}',
+    #               'EOQUQJLBQLDLAVQSWERAGGAOKUUKOPUWLQSKJNECCPRRXGAUABN',
+    #               'WGBKTQSGVHHHHHTZZZZZMQKBLC66666NNR11111OKUN2KTGYUIB',
+    #               'YFOWAOYLWGQHJQXZAUPZPNUCEJABRR6MYR1JASNOTF22MAAGTVA',
+    #               'GNLXFPEPMYGHQQGZGEPZXGJVEYE666UKNE11111WGNW2NVLCIOK',
+    #               'VTABNCKEFTJHXATZTYGZVLXLAB6JVGRATY1GEY1PGCO2QFPRUAP',
+    #               'UTCKYKGJBWMHPYGZZZZZWOKQTM66666GLA11111CPF222RUPCJT')
+    # for case in test_cases:
+    #     print(transform_string(case, '612HZ', '261TO'))
